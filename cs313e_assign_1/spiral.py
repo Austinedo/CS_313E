@@ -70,7 +70,7 @@ def sum_sub_grid(grid, val):
     row, col = 0, 0
 
     if val not in range(1, len(grid) * len(grid) + 1):
-        return 0 # this will return 0 if val is not found in the grid
+        return 0
 
     # finds the coordinates of the target value
     for i in range(len(grid)):
