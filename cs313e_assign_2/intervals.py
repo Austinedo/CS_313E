@@ -25,24 +25,25 @@ def merge_tuples(tuples_list):
     """
     if not tuples_list:
         return []
-    
-    duplicate_of_tuples = sorted(tuples_list, key=lambda x: x[0]) # use sorted() instead of .sort() 
+
+    duplicate_of_tuples = sorted(tuples_list, key=lambda x: x[0]) # use sorted() instead of .sort()
     prev_len = len(duplicate_of_tuples)
     merged_list = []
 
     while duplicate_of_tuples:
         current_interval = duplicate_of_tuples.pop(0)
-        
-        if not merged_list or current_interval[0] > merged_list[-1][1]: # if the list is empty or the interval is not merge-able
+        # if the list is empty or the interval is not merge-able
+        if not merged_list or current_interval[0] > merged_list[-1][1]:
             merged_list.append(current_interval)
-        else:                                                           # merges the interval [ current_interval[0] <= merged_list[-1][1] ]
+        # merges the interval [ current_interval[0] <= merged_list[-1][1] ]
+        else:
             merged_list[-1] = (merged_list[-1][0], max(current_interval[1], merged_list[-1][1]))
 
         if len(duplicate_of_tuples) == prev_len:
             break
 
         prev_len = len(tuples_list)
-    
+
     return merged_list
 
 
@@ -53,7 +54,9 @@ def sort_by_interval_size(tuples_list):
     size of the interval if two intervals have the size then it will sort by the
     lower number in the interval
     """
-    sorted_merged_list = sorted(tuples_list, key=lambda interval: (interval[1]-interval[0], interval[0]))
+    sorted_merged_list = sorted(tuples_list,
+                                key=lambda interval: (interval[1]-interval[0], interval[0]))
+
     return sorted_merged_list
 
 
