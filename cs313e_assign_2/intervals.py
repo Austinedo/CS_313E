@@ -26,19 +26,19 @@ def merge_tuples(tuples_list):
     if not tuples_list:
         return []
     
+    duplicate_of_tuples = sorted(tuples_list, key=lambda x: x[0]) # use sorted() instead of .sort() 
+    prev_len = len(duplicate_of_tuples)
     merged_list = []
-    prev_len = len(tuples_list)
-    tuples_list.sort(key=lambda x: x[0])
 
-    while tuples_list:
-        current_interval = tuples_list.pop(0)
+    while duplicate_of_tuples:
+        current_interval = duplicate_of_tuples.pop(0)
         
         if not merged_list or current_interval[0] > merged_list[-1][1]: # if the list is empty or the interval is not merge-able
             merged_list.append(current_interval)
         else:                                                           # merges the interval [ current_interval[0] <= merged_list[-1][1] ]
             merged_list[-1] = (merged_list[-1][0], max(current_interval[1], merged_list[-1][1]))
 
-        if len(tuples_list) == prev_len:
+        if len(duplicate_of_tuples) == prev_len:
             break
 
         prev_len = len(tuples_list)
@@ -75,7 +75,7 @@ def main():
     merged = merge_tuples(tuples_list)
 
     # sort the list of tuples according to the size of the interval
-    sorted_merge = sort_by_interval_size(merged)
+    sorted_merge = sort_by_interval_size(merge_tuples(tuples_list))
 
     # write the output list of tuples from the two functions
     print(merged)
