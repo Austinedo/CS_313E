@@ -23,8 +23,8 @@ class Employee:
     class Employee that is the base class for all employees
     """
     def __init__(self, **kwargs):
-        self.name = kwargs.get('name')
-        self.identifier = kwargs.get('identifier')
+        self.name = kwargs.get('name', None)
+        self.identifier = kwargs.get('identifier', None)
         self.__salary = kwargs.get('salary', None)
 
     @property
@@ -76,7 +76,7 @@ class Manager(Employee):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.bonus = kwargs.get('bonus')
+        self.bonus = kwargs.get('bonus', None)
 
     def cal_salary(self):
         """
@@ -99,7 +99,7 @@ class TemporaryEmployee(Employee):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.hours = kwargs.get('hours')
+        self.hours = kwargs.get('hours', None)
 
     def cal_salary(self):
         """
@@ -122,7 +122,7 @@ class Consultant(TemporaryEmployee):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.travel = kwargs.get('travel')
+        self.travel = kwargs.get('travel', None)
 
     def cal_salary(self):
         """
