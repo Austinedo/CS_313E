@@ -115,7 +115,14 @@ class SingularlyLinkedList:
 
         # removing node from LL and repairing the links
         if current == self.head:
-            self.head = 
+            self.head = self.head.next
+        else:
+            previous.next = current.next
+
+        return current
+    
+    def __str__(self):
+        return str(self.first)
 
 def main():
     print('This is the data structures module')
