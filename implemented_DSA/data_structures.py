@@ -120,9 +120,12 @@ class SingularlyLinkedList:
             previous.next = current.next
 
         return current
-    
+
     def __str__(self):
-        return str(self.first)
+        if self.head == None:
+            return 'None'
+
+        
 
 def main():
     print('This is the data structures module')
