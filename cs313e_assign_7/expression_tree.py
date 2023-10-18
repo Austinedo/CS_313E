@@ -20,44 +20,58 @@
 
 #  Date Last Modified: 10/18/23
 
+"""
+Used for standard input and files
+"""
 import sys
 
 operators = ['+', '-', '*', '/', '//', '%', '**']
 
 class Stack:
+    """Class Stack"""
     def __init__(self):
         self.stack = []
 
     def push(self, data):
+        """
+        Pushes data onto the top of the stack
+        """
         self.stack.append(data)
 
     def pop(self):
-        if(not self.is_empty()):
+        """
+        Removes and returns the data from top of the stack
+        """
+        if not self.is_empty():
             return self.stack.pop()
-        else:
-            return None
+        return None
     # added this function to the stack class
     def peek(self):
+        """
+        Returns the data from top of the stack
+        """
         if not self.is_empty():
             return self.stack[-1]
-        else:
-            return None
+        return None
 
     def is_empty(self):
+        """
+        Returns if the stack is empty
+        """
         return len(self.stack) == 0
 
 class Node:
-    def __init__ (self, data = None, lChild = None, rChild = None):
+    """Class Node"""
+    def __init__ (self, data = None, l_child = None, r_child = None):
         self.data = data
-        self.lChild = lChild
-        self.rChild = rChild
+        self.l_child = l_child
+        self.r_child = r_child
 
-class Tree():
+class Tree:
+    """Class Expression Tree"""
     def __init__ (self):
         self.root = None
-    
-    # this function takes in the input string expr and 
-    # creates the expression tree
+
     def create_tree (self, expr):
         """
         Input: a string mathematical expression
@@ -105,11 +119,13 @@ class Tree():
 
         self.root = node_stack.pop()
 
-    # `create_tree` helper function
-    # compares the order of operations for 2 operators
-    # input: 2 operators
-    # output: op1 <= op2 
     def operator_eval(self, op1, op2):
+        """
+        Description: `create_tree` helper function
+        Input: 2 operators
+        Output: returns a boolean based on the order
+                of operations of the 2 operators
+        """
         order_of_operations = {
             '+': 1,
             '-': 1,
@@ -120,59 +136,61 @@ class Tree():
             '**': 3,
         }
         return order_of_operations[op1] <= order_of_operations[op2]
+# FIXME: Ugly code
+    def evaluate(self, node):
+        """
+        Input: Node in the tree
+        Output: returns the value of the expression tree
+        """
+        if node.data not in operators:
+            return float(node.data)
 
+        left = self.evaluate(node.l_child)
+        right = self.evaluate(node.r_child)
 
-    # this function should evaluate the tree's expression
-    # returns the value of the expression after being calculated
-    def evaluate(self, aNode):
-        if aNode.data not in operators:
-            return float(aNode.data)
-
-        left = self.evaluate(aNode.lChild)
-        right = self.evaluate(aNode.rChild)
-
-        if aNode.data == '+':
+        if node.data == '+':
             return left + right
-        elif aNode.data == '-':
+        elif node.data == '-':
             return left - right
-        elif aNode.data == '*':
+        elif node.data == '*':
             return left * right
-        elif aNode.data == '/':
+        elif node.data == '/':
             return left / right
-        elif aNode.data == '//':
+        elif node.data == '//':
             return left // right
-        elif aNode.data == '%':
+        elif node.data == '%':
             return left % right
-        elif aNode.data == '**':
+        elif node.data == '**':
             return left ** right
 
-    # this function should generate the preorder notation of 
-    # the tree's expression
-    # returns a string of the expression written in preorder notation
-    def pre_order(self, aNode):
-        if aNode is None:
+    def pre_order(self, node):
+        """
+        Returns the prefix order of the expression tree
+        """
+        if node is None:
             return ''
 
         prefix_notation = ''
-        prefix_notation += aNode.data + ' '
-        prefix_notation += self.pre_order(aNode.lChild)
-        prefix_notation += self.pre_order(aNode.rChild)
+        prefix_notation += node.data + ' '
+        prefix_notation += self.pre_order(node.l_child)
+        prefix_notation += self.pre_order(node.r_child)
         return prefix_notation
 
-    # this function should generate the postorder notation of 
-    # the tree's expression
-    # returns a string of the expression written in postorder notation
-    def post_order (self, aNode):
-        if aNode is None:
+    def post_order(self, node):
+        """
+        Returns the postfix order of the expression
+        """
+        if node is None:
             return ''
         postfix_notation = ''
-        postfix_notation += self.post_order(aNode.lChild)
-        postfix_notation += self.post_order(aNode.rChild)
-        postfix_notation += aNode.data + ' '
+        postfix_notation += self.post_order(node.l_child)
+        postfix_notation += self.post_order(node.r_child)
+        postfix_notation += node.data + ' '
         return postfix_notation
 
 # you should NOT need to touch main, everything should be handled for you
 def main():
+    """Main function"""
     # read infix expression
     line = sys.stdin.readline()
     expr = line.strip()
