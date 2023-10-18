@@ -61,6 +61,7 @@ class CircularList:
 
         return None
 
+# FIXME : REDUNDANT CODE
     def delete(self, data):
         '''
         Finds and deletes the Link containing the data, reconnects
