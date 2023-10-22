@@ -136,7 +136,7 @@ class Tree:
             '**': 3,
         }
         return order_of_operations[op1] <= order_of_operations[op2]
-# FIXME: Ugly code
+
     def evaluate(self, node):
         """
         Input: Node in the tree
@@ -148,20 +148,9 @@ class Tree:
         left = self.evaluate(node.l_child)
         right = self.evaluate(node.r_child)
 
-        if node.data == '+':
-            return left + right
-        elif node.data == '-':
-            return left - right
-        elif node.data == '*':
-            return left * right
-        elif node.data == '/':
-            return left / right
-        elif node.data == '//':
-            return left // right
-        elif node.data == '%':
-            return left % right
-        elif node.data == '**':
-            return left ** right
+        expression = f'{left} {node.data} {right}'
+
+        return float(eval(expression))
 
     def pre_order(self, node):
         """
