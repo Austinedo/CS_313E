@@ -32,17 +32,13 @@ class Node():
         self.rchild = None
 
     def print_node(self, level=0):
-        """
-        Prints the tree from the current node and level
-        (defaults to printing from level 0)
-        """
-        if self.lchild is not None:
-            self.lchild.print_node(level + 1)
+        if self.rchild != None:
+            self.rchild.print_node(level + 1)
 
         print(' ' * 3 * level + '->', self.data)
 
-        if self.rchild is not None:
-            self.rchild.print_node(level + 1)
+        if self.lchild != None:
+            self.lchild.print_node(level + 1)
 
     def get_height(self):
         """
@@ -101,10 +97,6 @@ class Tree():
                 parent.rchild = new_node
             return
 
-    # Returns the range of values stored in a binary search tree of integers.
-    # The range of values equals the maximum value in the binary search
-    # tree minus the minimum value.
-    # If there is one value in the tree the range is 0. If the tree is empty the range is undefined.
     def range(self):
         """
         Returns the range of the values in a BST of integers
@@ -125,7 +117,6 @@ class Tree():
 
         return max_value - min_value
 
-    # Returns a list of nodes at a given level from left to right
     def get_level(self, level):
         """
         Returns a list of nodes at a given level from left to right
@@ -137,7 +128,7 @@ class Tree():
         queue = [(self.root, 0)]
 
         while queue:
-            current_node, current_level = queue.pop()
+            current_node, current_level = queue.pop(0)
             # if the current node is at the specified level then add to results
             if current_level == level:
                 result.append(current_node)
@@ -149,9 +140,6 @@ class Tree():
 
         return result
 
-
-    # Returns the list of the node that you see from left side
-    # The order of the output should be from top to down
     def left_side_view(self):
         """
         Returns the list of the nodes you see from the left side
@@ -183,8 +171,6 @@ class Tree():
         return (self.sum_leaf_nodes_recursive(node.lchild) +
                 self.sum_leaf_nodes_recursive(node.rchild))
 
-    # returns the sum of the value of all leaves.
-    # a leaf node does not have any children.
     def sum_leaf_nodes(self):
         """
         Returns the sum of the values of all leaves in the tree
