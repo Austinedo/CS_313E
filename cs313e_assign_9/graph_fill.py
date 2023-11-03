@@ -1,4 +1,4 @@
-#  File: GraphFill.py
+#  File: graph_fill.py
 #  Description:
 #  Student Name:
 #  Student UT EID:
@@ -8,7 +8,9 @@
 #  Unique Number:
 #  Date Created:
 #  Date Last Modified:
-
+"""
+Used for standard input and files
+"""
 import os
 import sys
 
@@ -19,6 +21,7 @@ os.system("")
 
 # code to reset the terminal color
 RESET_CHAR = "\u001b[0m"
+
 # color codes for the terminal
 COLOR_DICT = {
     "black": "\u001b[30m",
@@ -30,75 +33,105 @@ COLOR_DICT = {
     "cyan": "\u001b[36m",
     "white": "\u001b[37m"
 }
+
 # character code for a block
 BLOCK_CHAR = "\u2588"
 
-# Input: text is some string we want to write in a specific color
-#   color is the name of a color that is looked up in COLOR_DICT
-# Output: returns the string wrapped with the color code
 def colored(text, color):
+    """
+    Input: text is some string we want to write in a specific color
+           color is the name of a color that is looked up in COLOR_DICT
+    Output: returns the string wrapped with the color code
+    """
     color = color.strip().lower()
     if not color in COLOR_DICT:
         raise Exception(color + " is not a valid color!")
     return COLOR_DICT[color] + text
 
-# Input: color is the name of a color that is looked up in COLOR_DICT
-# prints a block (two characters) in the specified color
 def print_block(color):
+    """
+    Input: color is the name of a color that is looked up in COLOR_DICT
+           prints a block (two characters) in the specified color
+    """
     print(colored(BLOCK_CHAR, color)*2, end='')
 
 # -----------------------PRINTING LOGIC, DON'T WORRY ABOUT THIS PART----------------------------
 
 
-
 # Stack class; you can use this for your search algorithms
 class Stack:
+    '''
+    Class Stack
+    '''
     def __init__(self):
         self.stack = []
 
-  # add an item to the top of the stack
     def push(self, item):
+        """
+        Adds 'item' to the top of the stack
+        """
         self.stack.append(item)
 
-  # remove an item from the top of the stack
     def pop(self):
+        """
+        Removes an item from the top of the stack
+        """
         return self.stack.pop()
 
-  # check the item on the top of the stack
     def peek(self):
+        """
+        Checks the item on the top of stack
+        """
         return self.stack[-1]
 
-  # check if the stack if empty
     def is_empty(self):
+        """
+        Checks if the stack is empty
+        """
         return len(self.stack) == 0
 
-  # return the number of elements in the stack
     def size(self):
+        """
+        Returns the number of elements in the stack
+        """
         return len(self.stack)
 
-# Queue class; you can use this for your search algorithms
+
 class Queue:
+    """
+    Class Queue
+    """
     def __init__(self):
         self.queue = []
 
-    # add an item to the end of the queue
     def enqueue(self, item):
+        """
+        Appends 'item' to the end of the queue
+        """
         self.queue.append(item)
 
-    # remove an item from the beginning of the queue
     def dequeue(self):
+        """
+        Removes and returns the item from the beginning of the queue
+        """
         return self.queue.pop(0)
 
-    # checks the item at the top of the Queue
     def peek(self):
+        """
+        Checks the item at the beginning of the Queue
+        """
         return self.queue[0]
 
-    # check if the queue is empty
     def is_empty(self):
+        """
+        Checks if the queue is empty
+        """
         return len(self.queue) == 0
 
-    # return the size of the queue
     def size(self):
+        """
+        Returns the size of the queue
+        """
         return len(self.queue)
 
 # class for a graph node; contains x and y coordinates, a color, a list of edges and
@@ -106,8 +139,9 @@ class Queue:
 # it also contains a "previous color" attribute. This might be useful for
 # your flood fill implementation.
 class ColorNode:
-    # Input: x, y are the location of this pixel in the image
-    #   color is the name of a color
+    """
+    Class ColorNode used for ImageGraph
+    """
     def __init__(self, index, x_coord, y_coord, color):
         self.index = index
         self.color = color
@@ -120,26 +154,40 @@ class ColorNode:
     # Input: node_index is the index of the node we want to create an edge to in the node list
     # adds an edge and sorts the list of edges
     def add_edge(self, node_index):
+        """
+        Input: node_index is the index of the node we want to create an edge to
+               and appends this to the .edge list of the node
+        """
         self.edges.append(node_index)
 
     # Input: color is the name of the color the node should be colored in;
     # the function also saves the previous color (might be useful for
     # your flood fill implementation)
     def visit_and_set_color(self, color):
+        """
+        Input: color is the name of the color the node should be colored in;
+        The function also save the previous color (which may be useful for
+        your flood fill implementation)
+        """
         self.visited = True
         self.prev_color = self.color
         self.color = color
 
         print("Visited node " + str(self.index))
 
-# class that contains the graph
+
 class ImageGraph:
+    """
+    Class ImageGraph that contains the graph for ColorNode
+    """
     def __init__(self, image_size):
         self.nodes = []
         self.image_size = image_size
 
-    # prints the image formed by the nodes on the command line
     def print_image(self):
+        """
+        Prints the image formed by the nodes on the command line
+        """
         img = [["black" for i in range(self.image_size)] for j in range(self.image_size)]
 
         # fill img array
@@ -153,13 +201,18 @@ class ImageGraph:
         # print new line/reset color
         print(RESET_CHAR)
 
-    # sets the visited flag to False for all nodes
     def reset_visited(self):
-        for i in range(len(self.nodes)):
-            self.nodes[i].visited = False
+        """
+        Sets the visited flag on the ColorNode to False for
+        all nodes in the graph
+        """
+        for node in self.nodes:
+            node.visited = False
 
-    # implement your adjacency matrix printing here.
     def print_adjacency_matrix(self):
+        """
+        Prints the adjacency matrix for the graph
+        """
         print("Adjacency matrix:")
 
         adj_matrix = [[0 for _ in range(len(self.nodes))] for _ in range(len(self.nodes))]
@@ -179,6 +232,11 @@ class ImageGraph:
     #   start_index is the index of the currently visited node
     #   color is the color to fill the area containing the current node with
     def bfs(self, start_index, color):
+        """
+        Performs a BFS on the ImageGraph and prints it to command line
+        Input: start_index: refers to the ColorNode to begin the search
+               color: the color to change the node to after visiting
+        """
         # reset visited status
         self.reset_visited()
         # print initial state
@@ -205,6 +263,11 @@ class ImageGraph:
     #   start_index is the index of the currently visited node
     #   color is the color to fill the area containing the current node with
     def dfs(self, start_index, color):
+        """
+        Performs a DFS on the ImageGraph and prints it to command line
+        Input: start_index: refers to the ColorNode to begin the search
+               color: the color to change the node to after visiting
+        """
         # reset visited status
         self.reset_visited()
         # print initial state
@@ -229,8 +292,9 @@ class ImageGraph:
 
 
 def create_graph(data):
-    # creates graph from read in data
-
+    """
+    Creates an ImageGraph object from the read in data
+    """
     data_list = data.split("\n")
 
     # get size of image, number of nodes
@@ -271,6 +335,7 @@ def create_graph(data):
 
 
 def main():
+    """Main function"""
     # read input
     data = sys.stdin.read()
 
