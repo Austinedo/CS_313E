@@ -1,13 +1,15 @@
 #  File: graph_fill.py
-#  Description:
-#  Student Name:
-#  Student UT EID:
-#  Partner Name:
-#  Partner UT EID:
+#  Description: An image fill program that utilizes graphs,
+#               BFS, and DFS to fill selected areas of an
+#               image graph
+#  Student Name: Austine Do
+#  Student UT EID: ahd589
+#  Partner Name: Ahyeon Ko
+#  Partner UT EID: ak42464
 #  Course Name: CS 313E
-#  Unique Number:
-#  Date Created:
-#  Date Last Modified:
+#  Unique Number: 52590
+#  Date Created: 11/1/23
+#  Date Last Modified: 11/3/23
 """
 Used for standard input and files
 """
@@ -347,11 +349,11 @@ def main():
     # run bfs
     graph.bfs(search_start, search_color)
 
-    # reset by creating graph again
-    graph, search_start, search_color = create_graph(data)
+    # # reset by creating graph again
+    # graph, search_start, search_color = create_graph(data)
 
-    # run dfs
-    graph.dfs(search_start, search_color)
+    # # run dfs
+    # graph.dfs(search_start, search_color)
 
 
 if __name__ == "__main__":
