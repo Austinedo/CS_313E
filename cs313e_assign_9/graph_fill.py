@@ -349,11 +349,11 @@ def main():
     # run bfs
     graph.bfs(search_start, search_color)
 
-    # # reset by creating graph again
-    # graph, search_start, search_color = create_graph(data)
+    # reset by creating graph again
+    graph, search_start, search_color = create_graph(data)
 
-    # # run dfs
-    # graph.dfs(search_start, search_color)
+    # run dfs
+    graph.dfs(search_start, search_color)
 
 
 if __name__ == "__main__":
