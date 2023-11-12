@@ -21,7 +21,7 @@ import sys
 
 def max_investment_profit(total_money, num_houses, prices, percent_return):
     """
-    Input: total_money (int) : Is the total money available to invest
+    Input: total_money (int) : Is the investment budget
            num_houses (int) : The total numver of houses available to invest in
            prices (list) : A list of house prices (in millions of $)
            percent_return (list) : A list of investment return percentages for
@@ -33,10 +33,13 @@ def max_investment_profit(total_money, num_houses, prices, percent_return):
 
     for i in range(1, num_houses + 1):
         for j in range(total_money + 1):
+            # Checks if the price of the property is less than the investment budget
             if prices[i-1] <= j:
+                # Choose the max between the not buying the property vs. buying the property
                 dp_table[i][j] = max(dp_table[i-1][j],
-                                     dp_table[i - 1][j - prices[i - 1]] + prices[i - 1] * (percent_return[i - 1] / 100))
+                                     dp_table[i-1][j-prices[i-1]] + prices[i-1] * (percent_return[i-1] / 100))
             else:
+                # If the price of the property exceeds the budget
                 dp_table[i][j] = dp_table[i-1][j]
 
     return round(dp_table[num_houses][total_money], 2)
