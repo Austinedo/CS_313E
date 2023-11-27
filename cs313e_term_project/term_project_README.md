@@ -16,7 +16,7 @@
 
 3) Describe your design for main packages, classes, methods, functions, and iterations between them.
 
-    To begin, class functions and design was the first priority since they would be the building blocks my core program.
+    To begin, class functions/behaviors and design was the first priority since they would be the building blocks my core program.
     Most of the classes I created are data classes meaning their sole purpose is to hold the data, specifically the paycheck
     classes. However, my paycheck classes had a few functions such as calculating pay based on the information contained in the
     paycheck class. My employee class is generic as it contains the vital information on the employee like IDs and names, but each

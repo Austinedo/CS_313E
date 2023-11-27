@@ -12,8 +12,9 @@ Global constants
 STANDARD_WORK_WEEK_HRS = 40
 OVERTIME_RATE = 1.5
 HALF_RATE = 0.5
-CSV_HEADER_PAYCHECK = ['Employee Name','Global Employee ID','Payroll ID','Pay Period','Base Wage(s)','Gross Pay','Total Hours','Overtime Hours','Regular Hours','Floor Hours','Closing Hours',
-                       'Training Hours','Admin Hours','Reception Hours','Vacation Hours','Holiday Hours','Sick Hours', 'Overtime Hours Pay','Productivity Incentive','Product Incentive',
+CSV_HEADER_PAYCHECK = ['Employee Name','Global Employee ID','Payroll ID','Pay Period','Base Wage(s)','Gross Pay','Total Hours',
+                       'Overtime Hours','Regular Hours','Floor Hours','Closing Hours','Training Hours','Admin Hours','Reception Hours',
+                       'Vacation Hours','Holiday Hours','Sick Hours', 'Overtime Hours Pay','Productivity Incentive','Product Incentive',
                        'New Return Incentive','Shift Incentive','All Other Incentives','Total Tips']
 PAYCHECK_ATTR = ['_name', '_global_id', '_payroll_id', '_period', '_base_wage', '_gross_pay', '_total_hrs', '_overtime_hrs', 
                   '_regular_hrs', '_floor_hrs', '_closing_hrs', '_training_hrs', '_admin_hrs', '_reception_hrs', '_vacation_hrs', 
@@ -218,8 +219,9 @@ def main():
     """
     Main Function
     """
+    user_input = input('Enter the name of the file: ')
     # replace the file name with the desired file name HERE
-    df = pd.read_csv('Payroll Consolidated 2023-08-04 - 2023-08-11.csv')
+    df = pd.read_csv(user_input)
     df.columns = [col.lower() for col in df]
 
     # corrects the date values if they occur in the format 'mm/dd/yyyy' to 'yyyy-mm-dd' [this is to standardize all dates]
